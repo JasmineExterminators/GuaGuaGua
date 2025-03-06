@@ -45,17 +45,18 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
 
-    screen.blit(duckImg, (player_pos.x - duckImg.get_width() / 2, player_pos.y - duckImg.get_height() / 2))
+    player_rect = duckImg.get_rect(center=(player_pos.x, player_pos.y))
+    screen.blit(duckImg, player_rect.topleft)
 
     for i in range(len(pipesList)):
         pipesList[i].move()
         pipesList[i].draw(screen)
         pipesListMirror[i].move()
         pipesListMirror[i].draw(screen)
-        if player_pos.y > pipesList[i].rect.y and player_pos.x > pipesList[i].rect.x and player_pos.x < pipesList[i].rect.x + pipesList[i].rect.width:
+        if player_rect.colliderect(pipesList[i].rect):
             # bottom pipe collision
             running = False
-        if player_pos.y < pipesListMirror[i].rect.y + pipesListMirror[i].rect.height and player_pos.x > pipesListMirror[i].rect.x and player_pos.x < pipesListMirror[i].rect.x + pipesListMirror[i].rect.width:
+        if player_rect.colliderect(pipesListMirror[i].rect):
             # top pipe collision
             running = False
 
