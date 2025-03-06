@@ -52,6 +52,12 @@ while running:
         pipesList[i].draw(screen)
         pipesListMirror[i].move()
         pipesListMirror[i].draw(screen)
+        if player_pos.y > pipesList[i].rect.y and player_pos.x > pipesList[i].rect.x and player_pos.x < pipesList[i].rect.x + pipesList[i].rect.width:
+            # bottom pipe collision
+            running = False
+        if player_pos.y < pipesListMirror[i].rect.y + pipesListMirror[i].rect.height and player_pos.x > pipesListMirror[i].rect.x and player_pos.x < pipesListMirror[i].rect.x + pipesListMirror[i].rect.width:
+            # top pipe collision
+            running = False
 
     pipeTimer += dt
     if pipeTimer >= PIPE_TIME:
